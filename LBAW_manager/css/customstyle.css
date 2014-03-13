@@ -1,0 +1,72 @@
+@import url("bootstrap.min.css");
+@import url("bootstrap-theme.css");
+
+
+
+.manel
+{  
+	background-color : #08567d ;
+	color: #FFFFFF;
+	height:250px;
+	text-align:justify;
+    border-color: #9CBAC9;
+	border: 5px solid;
+}
+.prefil_image
+{
+padding: 4px;
+line-height: 1.42857143;
+background-color: #08567d;
+border: 1px solid #ddd;
+border-radius: 4px;
+-webkit-transition: all .2s ease-in-out;
+transition: all .2s ease-in-out;
+display: inline-block;
+max-width: 150px;
+height: auto;
+}
+
+.my_div
+{
+background-color: #08567d;
+color: #FFFFFF;
+height:250px;
+}
+
+.botton_b
+{position:absolute;
+bottom:   5px;
+right:  5px;}
+
+.container-fluid {
+padding-right: 0px;
+padding-left: 0px;
+}
+
+.navbar-toogle{
+	
+	background-color : #F8F8F8;
+	border-color: #E7E7E7;
+
+}
+
+.jumbotron{
+ 
+	 height: 170px;
+     background-size: cover;
+	 background-color: #08567d;
+}
+
+.jumbotron h1{
+	color: #FFFFFF;
+	text-shadow: 0px 0px 5px #888888;
+}
+
+.as {text-align: right;}
+
+
+footer{
+	
+	margin: 40px 0px;
+	padding: 20px 0px;
+}

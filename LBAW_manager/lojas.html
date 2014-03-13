@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>XPTO Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/customstyle.css" rel="stylesheet" media="screen">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+			//Função para modo de pesquisa range
+			function toggleModoRange()
+			{
+				$('#num_searchModoRange').slideToggle();
+			}
+			
+			
+			
+		</script>
+  </head>
+  <body>
+          <nav class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
+          <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">XPTO Manager</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li ><a href="#">
+			  <span class="glyphicon glyphicon-home"></span>
+			  Home
+			  </a>
+			  </li>
+              <li class="dropdown active"><a href="#"class="dropdown-toggle" data-toggle="dropdown">
+			  <span class="glyphicon glyphicon-shopping-cart"></span>
+			  Lojas
+			  <b class="caret"></b></a>
+			  <ul class="dropdown-menu">
+                  <li><a href="#">As suas Lojas</a></li>
+                  <li><a href="#">Criar Loja</a></li>
+				   <li><a href="#">Clientes </a></li>
+				    <li><a href="#">Funcionários </a></li>
+                </ul>
+				</b>
+			  </li>
+              </li>
+              <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">
+			  <span class="glyphicon glyphicon-list-alt"></span>
+			  Encomendas
+			  <b class="caret"></b></a>
+			  <ul class="dropdown-menu">
+                  <li><a href="#">Criar Encomenda</a></li>
+                  <li><a href="#">Os Fornecedores</a></li>
+				  <li><a href="#">Encomendas em Trânsito</a></li>
+                </ul>
+			   </b>
+			  </li>
+			  
+			    <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">
+			  <span class="glyphicon glyphicon-barcode"></span>
+			  Produtos
+			  <b class="caret"></b></a>
+			  <ul class="dropdown-menu">
+                  <li><a href="#">Criar Produto</a></li>
+                  <li><a href="#">Editar Produtos</a></li>
+				  <li><a href="#">Ver Produtos</a></li>
+                </ul>
+			   </b>
+			  </li>
+			  
+			  
+			  
+            </ul>
+            <form class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Pesquisar">
+              </div>
+              <button type="submit" class="btn btn-default">Pesquisar</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">
+			  <span class="glyphicon glyphicon-user"></span> 
+			  Área Pessoal
+			  </a>
+			  </li>
+               
+            </ul>
+          </div>
+		  </div>
+		  </nav>
+		  
+		  <div class="container-fluid">
+        <div class="jumbotron">
+            <h1>Gestão Organizada, Segura e Rápida</h1>
+        </div>
+        </div>
+		
+		
+		
+		<div class="container">
+		<div class="row">
+		
+		<div class="col-md-4">
+		</div>
+        <div class="col-md-4">
+		
+		<form class="navbar-form" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nome da Loja">
+              </div>
+              <button type="submit" class="btn btn-default">Pesquisar</button>
+        </form>
+		
+		</div>
+		 <div class="col-md-4">
+		</div>
+		
+		</div>
+		</div>
+		
+		
+		<div class="container">
+		<div class="row">
+		
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-10">
+              
+	  <table class="table table-striped">
+	  <thead>
+	  <td>
+	  Loja
+	  </td>
+	  <td>
+	  Gerente
+	  </td>
+	  <td>
+	  Funcionários
+	  </td>
+	  
+
+	  </thead>
+	
+	  <tr>
+	  
+	  <td> 
+	  Loja 1
+	  </td>
+	  <td>
+	  <a href="#" > Gerente Loja 1 </a>
+	  </td>
+	   <td>
+	 	  <a href="#" > 0 </a>
+	  </td>
+	  <td>
+	  <a href="#">
+	  <span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#myModal"></span>
+	  </a>
+	  </td>
+	 
+	  </tr> 
+	  <tr>
+	  <td>Loja 2
+	  </td>
+	  <td>
+	  	  <a href="#" > Gerente Loja 1 </a>
+	  </td>
+	   <td>	
+	   <a href="#" >0</a>
+	  </td>
+	  <td>
+	  <a href="#">
+	  <span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#myModal"></span>
+	  </a>
+	  </td>
+	  </tr>
+	 
+	 <tr>
+	  <td>Loja 3
+	  </td>
+	  <td>
+	  	  <a href="#" > Gerente Loja 3 </a>
+	  </td>
+	   <td>	
+	   <a href="#" >0</a>
+	  </td>
+	  <td>
+	  <a href="#">
+	  <span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#myModal"></span>
+	  </a>
+	  </td>
+	  </tr>
+	  
+	  <tr>
+	  <td>Loja 4
+	  </td>
+	  <td>
+	  	  <a href="#" > Gerente Loja 4 </a>
+	  </td>
+	   <td>	
+	   <a href="#" >0</a>
+	  </td>
+	  <td>
+	  <a href="#">
+	  <span class="glyphicon glyphicon-wrench" data-toggle="modal" data-target="#myModal"></span>
+	  </a>
+	  </td>
+	  </tr>
+	 
+	  
+	  
+	
+	  </table>
+	  <div class="as">
+	  <a href="#" data-toggle="modal" data-target="#myModal">
+	  <span class="glyphicon glyphicon-wrench" ></span>Adicionar Loja
+	  </a>
+	  </div>
+      
+    </div>
+ 
+		<div class="col-md-1">
+		</div>
+		
+		  </div>
+  </div>
+</div>
+
+<!-- Modal Show/Edit product-->
+<div class="modal fade" id="myAddProd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel1">Adicionar Loja</h4>
+      </div>
+      <div class="modal-body">
+
+		<table class="table table-striped" align="center">
+			
+			<tbody>
+			
+			<tr>
+			<td rowspan="4">
+			<center>
+			<img src="http://www.iconesbr.net/iconesbr/2008/11/6946/6946_256x256.png" 
+			alt="Responsive image" class="prefil_image">
+			</center>
+			</td>
+			
+			
+			<td>
+			
+			
+			NOME 
+		
+			</td>
+			<td> 
+			 <input class="form-control" placeholder="Nome da Loja" required autofocus>
+			</td>
+	
+			
+			
+			</tr>
+			
+			<tr>
+			<td>
+			Morada
+			</td>
+			<td>
+			 <input class="form-control" placeholder="Morada da Loja" required autofocus>
+			</td> 
+			
+		
+			</tr>
+
+			<tr>
+			<td>
+			Telefone
+			</td>
+			
+			<td>
+		    <input class="form-control" placeholder="Número da Loja" required autofocus>
+			</td>
+			
+			</tr>
+			
+			
+			<tr>
+			<td>
+			<a href="#">
+			 Adicionar Gerente
+			 <span class="glyphicon glyphicon-plus"> </span>
+			 </a>
+			</td>
+				<td>
+			<a href="#">
+			 Adicionar Funcionários
+			 <span class="glyphicon glyphicon-plus"> </span>
+			 </a>
+			</td>
+			
+			
+			</tr>
+		
+			<tr>
+			
+			
+			
+			</tr>
+			</tbody>
+			</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal ADD Product-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Loja 1</h4>
+      </div>
+      <div class="modal-body">
+
+		<table class="table table-striped" align="center">
+			
+			<tbody>
+			
+			<tr>
+			<td rowspan="4">
+			<center>
+			<img src="http://www.iconesbr.net/iconesbr/2008/11/6946/6946_256x256.png" 
+			alt="Responsive image" class="prefil_image">
+			</center>
+			</td>
+			
+			
+			<td>
+			
+			
+			NOME 
+		
+			</td>
+			<td> 
+			Loja 1
+			</td>
+			<td>
+			<a href="#">
+			  <span class="glyphicon glyphicon-pushpin"></span>
+				Editar
+			  </a>
+			</td>
+			
+			
+			</tr>
+			
+			<tr>
+			<td>
+			Morada
+			</td>
+			<td>
+			Morada Loja 1
+			</td> 
+			<td>
+			<a href="#">
+			  <span class="glyphicon glyphicon-pushpin"></span>
+				Editar
+			  </a>
+			</td>
+		
+			</tr>
+
+			<tr>
+			<td>
+			Telefone
+			</td>
+			
+			<td>
+		   000000000
+			</td>
+			<td>
+			<a href="#">
+			  <span class="glyphicon glyphicon-pushpin"></span>
+				Editar
+			  </a>
+			</td>
+			</tr>
+			
+			<tr>
+			<td>
+			<a href="#" > Ver Armazém
+			</td>
+		
+			
+			</tr>
+		
+			</tr>
+			
+			</tbody>
+			</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+		
+<footer>
+          <div class="container">
+          <div class="row">
+            <div class="col-md-4">&copy; 2014</div>
+            <div class="col-md-5">
+              <ul class="nav nav-pills">
+				<li class="active"><a href="#">Aprenda a usar!</a></li>
+				<li > <a href="#">Contactos</a> </li>
+				<li > <a href="#">Sobre nós</a> </li>
+			  </ul>
+            </div>
+            <div class="col-md-3 pull-right">
+              <h3 class="text-right pull-right">LBAW Manager, SA.</h3>
+            </div>
+          </div>
+          </div>
+        </footer>
+		
+		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" ></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>
