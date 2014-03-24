@@ -1,33 +1,33 @@
-/* sourceforge.net/projects/spawnner */
+﻿/* sourceforge.net/projects/spawnner */
 
 /* CRIAR TRIGGER PASSWORD */
 
-DROP TABLE Person IF EXISTS;
-DROP TABLE Client IF EXISTS;
-DROP TABLE Supplier IF EXISTS;
-DROP TABLE User IF EXISTS;
-DROP TABLE Manager IF EXISTS;
-DROP TABLE PoSOperator IF EXISTS;
-DROP TABLE ShopKeeper IF EXISTS;
-DROP TABLE Report IF EXISTS;
-DROP TABLE Delivery IF EXISTS;
-DROP TABLE Deposit IF EXISTS;
-DROP TABLE Sales IF EXISTS;
-DROP TABLE Building IF EXISTS;
-DROP TABLE Storage IF EXISTS;
-DROP TABLE PointOfSale IF EXISTS;
-DROP TABLE Product IF EXISTS;
-DROP TABLE Transaction IF EXISTS;
-DROP TABLE CompanyCliente IF EXISTS;
-DROP TABLE SupplierCompany IF EXISTS;
-DROP TABLE Order IF EXISTS;
-DROP TABLE Quantity IF EXISTS;
-DROP TABLE ProductOrder IF EXISTS;
-DROP TABLE ShopKeeperPointOfSale IF EXISTS;
-DROP TABLE ProductBuilding IF EXISTS;
+DROP TABLE IF EXISTS Person CASCADE;
+DROP TABLE IF EXISTS Client CASCADE;
+DROP TABLE IF EXISTS Supplier CASCADE;
+DROP TABLE IF EXISTS Userino CASCADE;
+DROP TABLE IF EXISTS Manager CASCADE;
+DROP TABLE IF EXISTS PoSOperator CASCADE;
+DROP TABLE IF EXISTS ShopKeeper CASCADE;
+DROP TABLE IF EXISTS Report CASCADE;
+DROP TABLE IF EXISTS Delivery CASCADE;
+DROP TABLE IF EXISTS Deposit CASCADE;
+DROP TABLE IF EXISTS Sales CASCADE;
+DROP TABLE IF EXISTS Building CASCADE;
+DROP TABLE IF EXISTS Storage CASCADE;
+DROP TABLE IF EXISTS PointOfSale CASCADE;
+DROP TABLE IF EXISTS Product CASCADE;
+DROP TABLE IF EXISTS Transaction CASCADE;
+DROP TABLE IF EXISTS CompanyCliente CASCADE;
+DROP TABLE IF EXISTS SupplierCompany CASCADE;
+DROP TABLE IF EXISTS Orderino CASCADE;
+DROP TABLE IF EXISTS Quantity CASCADE;
+DROP TABLE IF EXISTS ProductOrder CASCADE;
+DROP TABLE IF EXISTS ShopKeeperPointOfSale CASCADE;
+DROP TABLE IF EXISTS ProductBuilding CASCADE;
 
 CREATE TABLE Person (
-	idPerson PRIMARY KEY,
+	idPerson SERIAL PRIMARY KEY, 
 	email VARCHAR(255) NOT NULL UNIQUE,
 	fax VARCHAR(255),
 	address VARCHAR(255) NOT NULL,
@@ -38,15 +38,15 @@ CREATE TABLE Person (
 );
 
 CREATE TABLE Supplier (
-	idPerson PRIMARY KEY REFERENCES Person(idPerson)
+	idPerson SERIAL PRIMARY KEY REFERENCES Person(idPerson)
 );
 
 CREATE TABLE Client (
-	idPerson PRIMARY KEY REFERENCES Person(idPerson)
+	idPerson SERIAL PRIMARY KEY REFERENCES Person(idPerson)
 );
 
-CREATE TABLE User (
-	idPerson PRIMARY KEY,
+CREATE TABLE Userino (
+	idPerson SERIAL PRIMARY KEY,
 	photograph BYTEA NOT NULL,
 	password VARCHAR(20) NOT NULL,
 	salary MONEY NOT NULL,
@@ -54,38 +54,38 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Manager (
-	idPerson PRIMARY KEY REFERENCES User(idPerson)
-);
+	idPerson SERIAL PRIMARY KEY REFERENCES Userino(idPerson) 
+	);
 
 CREATE TABLE PoSOperator (
-	idPerson PRIMARY KEY REFERENCES User(idPerson)
+	idPerson SERIAL PRIMARY KEY REFERENCES Userino(idPerson)
 );
 
 CREATE TABLE ShopKeeper (
-	idPerson PRIMARY KEY REFERENCES User(idPerson)
+	idPerson SERIAL PRIMARY KEY REFERENCES Userino(idPerson) 
 );
 
 CREATE TABLE Report (
 	idReport SERIAL PRIMARY KEY,
 	content VARCHAR(2000) NOT NULL,
-	completionDate TIMESTAMPZ NOT NULL,
+	completionDate TIMESTAMP NOT NULL,
 	name VARCHAR(20) NOT NULL UNIQUE,
-	idPerson NOT NULL UNIQUE REFERENCES PoSOperator(idPerson)
+	idPerson SERIAL NOT NULL UNIQUE REFERENCES PoSOperator(idPerson) 
 );
 
 CREATE TABLE Building (
 	idBuilding SERIAL PRIMARY KEY,
 	zipCode VARCHAR(255) NOT NULL,
 	address VARCHAR(255) NOT NULL UNIQUE,
-	idPerson NOT NULL UNIQUE REFERENCES PoSOperator(idPerson)
+	idPerson SERIAL NOT NULL UNIQUE REFERENCES PoSOperator(idPerson) 
 );
 
 CREATE TABLE Storage (
-	idBuilding SERIAL PRIMARY KEY REFERENCES Building(idBuilding)
+	idBuilding SERIAL PRIMARY KEY REFERENCES Building(idBuilding) 
 );
 
 CREATE TABLE PointOfSale (
-	idBuilding SERIAL PRIMARY KEY REFERENCES Building(idBuilding)
+	idBuilding SERIAL PRIMARY KEY REFERENCES Building(idBuilding) 
 );
 
 CREATE TABLE Quantity (
@@ -98,7 +98,7 @@ CREATE TABLE Quantity (
 CREATE TABLE Product (
 	idProduct SERIAL PRIMARY KEY,
 	category VARCHAR(20) NOT NULL,
-	expirationDate TIMESTAMPZ NOT NULL,
+	expirationDate TIMESTAMP NOT NULL,
 	description VARCHAR(255),
 	photograph BYTEA NOT NULL UNIQUE,
 	name VARCHAR(20) NOT NULL,
@@ -108,37 +108,37 @@ CREATE TABLE Product (
 CREATE TABLE Transaction (
 	idTransaction SERIAL PRIMARY KEY,
 	value MONEY,
-	idPointOfSale SERIAL NOT NULL UNIQUE REFERENCES PointOfSale(idBuilding)
+	idPointOfSale SERIAL NOT NULL UNIQUE REFERENCES PointOfSale(idBuilding) 
 );
 
 CREATE TABLE SupplierCompany (
-	idTransaction SERIAL PRIMARY KEY REFERENCES Transaction(idTransaction),
-	idPerson SERIAL UNIQUE NOT NULL Supplier(idPerson)
+	idTransaction SERIAL PRIMARY KEY REFERENCES Transaction(idTransaction), 
+	idPerson SERIAL UNIQUE NOT NULL  REFERENCES Supplier(idPerson) 
 
 );
 
-CREATE TABLE Order (
+CREATE TABLE Orderino (
 	idOrder SERIAL PRIMARY KEY,
-	orderData TIMESTAMPZ NOT NULL,
-	paymentDate TIMESTAMPZ NOT NULL,
-	deliveryDate TIMESTAMPZ NOT NULL,
-	idSupplierCompany SERIAL NOT NULL UNIQUE REFERENCES SupplierCompany(idTransaction)
+	orderData TIMESTAMP NOT NULL,
+	paymentDate TIMESTAMP NOT NULL,
+	deliveryDate TIMESTAMP NOT NULL,
+	idSupplierCompany SERIAL NOT NULL UNIQUE REFERENCES SupplierCompany(idTransaction) 
 );
 
 CREATE TABLE ProductOrder ( 
-	idProduct SERIAL PRIMARY KEY REFERENCES Product(idProduct),
-	idOrder SERIAL PRIMARY KEY REFERENCES Order(idOrder),
+	idProduct SERIAL REFERENCES Product(idProduct),
+	idOrder SERIAL REFERENCES Orderino(idOrder), 
 	PRIMARY KEY (idProduct, idOrder)
 );
 
 CREATE TABLE ShopKeeperPointOfSale (
-	idPerson SERIAL REFERENCES ShopKeeper(idPerson),
-	idBuilding SERIAL REFERENCES Building(idBuilding),
+	idPerson SERIAL REFERENCES ShopKeeper(idPerson), 
+	idBuilding SERIAL REFERENCES Building(idBuilding), 
 	PRIMARY KEY (idPerson, idBuilding)
 );
 
 CREATE TABLE ProductBuilding (
 	idBuilding SERIAL REFERENCES Building(idBuilding),
-	idProduct SERIAL REFERENCES Product(idProduct),
+	idProduct SERIAL REFERENCES Product(idProduct), 
 	PRIMARY KEY (idBuilding, idProduct)
 );
