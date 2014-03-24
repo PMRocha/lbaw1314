@@ -26,6 +26,37 @@ DROP TABLE IF EXISTS ProductOrder CASCADE;
 DROP TABLE IF EXISTS ShopKeeperPointOfSale CASCADE;
 DROP TABLE IF EXISTS ProductBuilding CASCADE;
 
+CREATE DOMAIN zip_code AS TEXT
+CHECK(
+    VALUE ~ '^\\d{5}-\\d{3}$, '
+);
+
+CREATE DOMAIN type AS TEXT
+CHECK(
+    VALUE ~ 'Delivery'
+    OR VALUE ~ 'Sales'
+    OR VALUE ~ 'Deposit'
+);
+
+CREATE DOMAIN workday AS TEXT
+CHECK(
+     VALUE ~ 'Monday'
+     OR VALUE ~ 'Tuesday'
+     OR VALUE ~ 'Wednesday'
+     OR VALUE ~ 'Thursday'
+     OR VALUE ~ 'Friday'
+);
+
+CREATE DOMAIN weekday AS TEXT
+CHECK(
+     VALUE ~ 'Monday'
+     OR VALUE ~ 'Tuesday'
+     OR VALUE ~ 'Wednesday'
+     OR VALUE ~ 'Thursday'
+     OR VALUE ~ 'Friday'
+     OR VALUE ~ 'Saturday'
+);
+
 CREATE TABLE Person (
 	idPerson SERIAL PRIMARY KEY, 
 	email VARCHAR(255) NOT NULL UNIQUE,
