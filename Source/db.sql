@@ -32,7 +32,7 @@ DROP TYPE IF EXISTS weekday;
 
 CREATE DOMAIN zip_code AS TEXT
 CHECK(
-    VALUE ~ '^\\d{4}-\\d{3}$,[A-Z][a-z]*'
+    VALUE ~ '^\d{4}-\d{3},[A-Z][a-z]*((\s[A-Z][a-z]*)|(\s[a-z]*))*'
 );
 
 CREATE TYPE reportType AS ENUM('Sales','Deposit','Delivery');
@@ -518,17 +518,17 @@ INSERT INTO Report (idReport,content,completionDate,name,idPerson,type) VALUES (
 INSERT INTO Report (idReport,content,completionDate,name,idPerson,type) VALUES (99,'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu imperdiet ullamcorper. Duis at lacus.','25/02/2014','Class aptent taciti',5,'Delivery');
 INSERT INTO Report (idReport,content,completionDate,name,idPerson,type) VALUES (100,'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu imperdiet ullamcorper. Duis at lacus. Quisque purus sapien, gravida non, sollicitudin a, malesuada id, erat. Etiam vestibulum massa rutrum magna. Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum.','04/01/2014','nunc risus varius',8,'Delivery');
 
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (1,'3050-011','546-1778 Aliquet Rd.',12);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (2,'7600-122','Ap #939-8354 Nibh St.',2);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (3,'4620-525','P.O. Box 412, 9850 Pharetra. St.',3);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (4,'5140-202','Ap #511-5300 Non Avenue',4);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (5,'6000-002','7833 Diam Road',5);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (6,'3000-042','P.O. Box 670, 6021 Congue, Rd.',6);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (7,'7000-092','Ap #792-835 At, St.',7);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (8,'8000-146','P.O. Box 724, 2822 Laoreet St.',8);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (9,'1000-209','2630 Ante St.',9);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (10,'4000-224','Ap #626-4168 Nec Street',10);
-INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (11,'2000-011','Ap #103-2097 Ornare Rd.',11);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (1,'3050-011,Aveiro','546-1778 Aliquet Rd.',12);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (2,'7600-122,Beja','Ap #939-8354 Nibh St.',2);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (3,'4620-525,Braga','P.O. Box 412, 9850 Pharetra. St.',3);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (4,'5140-202,Braganca','Ap #511-5300 Non Avenue',4);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (5,'3430-001,Viseu','7833 Diam Road',5);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (6,'3000-042,Coimbra','P.O. Box 670, 6021 Congue, Rd.',6);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (7,'7000-092,Evora','Ap #792-835 At, St.',7);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (8,'8000-146,Faro','P.O. Box 724, 2822 Laoreet St.',8);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (9,'1000-209,Lisboa','2630 Ante St.',9);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (10,'4000-224,Porto','Ap #626-4168 Nec Street',10);
+INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (11,'4900-290,Viana do Castelo','Ap #103-2097 Ornare Rd.',11);
 
 INSERT INTO Storage (idBuilding) VALUES (1);
 INSERT INTO Storage (idBuilding) VALUES (2);
