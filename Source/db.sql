@@ -91,7 +91,7 @@ CREATE TABLE Report (
 
 CREATE TABLE Building (
 	idBuilding SERIAL PRIMARY KEY,
-	zipCode VARCHAR(255) NOT NULL,
+	zipCode zip_code NOT NULL,
 	address VARCHAR(255) NOT NULL UNIQUE,
 	idPerson SERIAL NOT NULL UNIQUE REFERENCES PoSOperator(idPerson) 
 );
