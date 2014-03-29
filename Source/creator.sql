@@ -79,7 +79,7 @@ CREATE TABLE ShopKeeper (
 
 CREATE TABLE Report (
 	idReport SERIAL PRIMARY KEY,
-	content VARCHAR(2000) NOT NULL,
+	content TEXT NOT NULL,
 	completionDate TIMESTAMP NOT NULL,
 	name VARCHAR(100) NOT NULL,
 	idPerson INTEGER NOT NULL REFERENCES PoSOperator(idPerson),
@@ -114,7 +114,7 @@ CREATE TABLE Product (
 	expirationDate TIMESTAMP NOT NULL,
 	description VARCHAR(255),
 	photograph VARCHAR(255) NOT NULL,
-	name VARCHAR(20) NOT NULL,
+	name VARCHAR(50) NOT NULL,
 	price MONEY NOT NULL
 );
 
