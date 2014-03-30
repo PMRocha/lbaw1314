@@ -356,6 +356,9 @@ INSERT INTO Report (name, idReport,content,completionDate,idPerson,type) VALUES 
 INSERT INTO Report (name, idReport,content,completionDate,idPerson,type) VALUES ('Lorem ipsum',99,'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu imperdiet ullamcorper. Duis at lacus. Quisque purus sapien, gravida non, sollicitudin a, malesuada id, erat. Etiam vestibulum massa rutrum magna. Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut','2014-04-02 14:56:34',12,'Deposit');
 INSERT INTO Report (name, idReport,content,completionDate,idPerson,type) VALUES ('Lorem ipsum',100,'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu imperdiet ullamcorper. Duis at lacus. Quisque purus sapien, gravida','2014-06-09 21:38:28',12,'Delivery');
 
+/*Deve falhar*/
+INSERT INTO Report (name, idReport,content,completionDate,idPerson,type) VALUES ('Fail Report',100,'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu imperdiet ullamcorper. Duis at lacus. Quisque purus sapien, gravida','2013-06-09 21:38:28',12,'Delivery');
+
 INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (1,'3050-011,Aveiro','546-1778 Aliquet Rd.',12);
 INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (2,'7600-122,Beja','Ap #939-8354 Nibh St.',2);
 INSERT INTO Building (idBuilding,zipCode,address,idPerson) VALUES (3,'4620-525,Braga','P.O. Box 412, 9850 Pharetra. St.',3);
@@ -481,6 +484,9 @@ INSERT INTO Product (idProduct,category,expirationDate,description,photograph,na
 INSERT INTO Product (idProduct,category,expirationDate,description,photograph,name,price) VALUES (98,'category','2014-10-03 23:39:48','Lorem ipsum','C:\Users\Joao\Desktop\name.jpg','vehicula aliquet libero. Integer in','25,094');
 INSERT INTO Product (idProduct,category,expirationDate,description,photograph,name,price) VALUES (99,'category','2013-05-20 09:06:20','Lorem ipsum dolor sit amet, consectetuer','C:\Users\Joao\Desktop\name.jpg','In','136,710');
 INSERT INTO Product (idProduct,category,expirationDate,description,photograph,name,price) VALUES (100,'category','2013-12-12 17:56:21','Lorem ipsum dolor sit amet, consectetuer adipiscing elit.','C:\Users\Joao\Desktop\name.jpg','felis. Nulla tempor augue','125,975');
+
+/*Deve falhar */
+INSERT INTO Product (idProduct,category,expirationDate,description,photograph,name,price) VALUES (100,'category','2013-12-12 17:56:21','Lorem ipsum dolor sit amet, consectetuer adipiscing elit.','C:\Users\Joao\Desktop\name.jpg','Fail Product','125,975');
 
 INSERT INTO Transaction (idTransaction,value,idPointOfSale) VALUES (1,'11,342',11);
 INSERT INTO Transaction (idTransaction,value,idPointOfSale) VALUES (2,'14,511',11);
