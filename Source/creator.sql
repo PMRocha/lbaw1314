@@ -64,6 +64,7 @@ CREATE TABLE Userino (
 	idPerson SERIAL PRIMARY KEY,
 	photograph VARCHAR(255) NOT NULL,
 	password VARCHAR(20) NOT NULL,
+	hash bytea,
 	salary MONEY NOT NULL,
 	userName VARCHAR(20) NOT NULL UNIQUE
 );
