@@ -28,7 +28,7 @@ DROP TYPE IF EXISTS weekday;
 DROP INDEX IF EXISTS price_indx;
 DROP FUNCTION IF EXISTS product_expiration_date();
 DROP FUNCTION IF EXISTS report_completion_date();
-
+/* DROP FUNCTION IF EXISTS hash_password(); */
 
 CREATE DOMAIN zip_code AS TEXT
 CHECK(
@@ -182,14 +182,13 @@ CREATE INDEX type_indx ON Report(reportType);
 /* Verifies if in the new inserted/updated product the expiration date is superior to the system date */
 CREATE FUNCTION product_expiration_date() RETURNS trigger AS $$
 BEGIN
-	IF new.expirationDate > CURRENT_TIMESTAMP THEN
+	IF new.expirationDate > (SELECT CURRENT_TIMESTAMP) THEN
   		RETURN NEW;
 	ELSE 
   		RETURN NULL; /* OR RAISE EXCEPTION 'Invalid Expiration Date' */
 END IF;
 END; $$
-LANGUAGE plpgsql;
-
+LANGUAGE 'plpgsql';
 CREATE TRIGGER verify_expiration_date BEFORE INSERT OR UPDATE ON Product 
 FOR EACH ROW EXECUTE PROCEDURE product_expiration_date();
 
@@ -197,13 +196,27 @@ FOR EACH ROW EXECUTE PROCEDURE product_expiration_date();
 /* Verifies if in the new inserted/updated report the completion date is inferior to the system date */
 CREATE FUNCTION report_completion_date() RETURNS trigger AS $$
 BEGIN
-	IF new.completionDate <= CURRENT_TIMESTAMP THEN
+	IF new.completionDate <= (SELECT CURRENT_TIMESTAMP) THEN
   		RETURN NEW;
 	ELSE 
-  		RETURN NULL; /* OR RAISE EXCEPTION 'Invalid Completion Date' */
+  		RETURN NULL; 
 END IF;
 END; $$
-LANGUAGE plpgsql;
-
+LANGUAGE 'plpgsql';
 CREATE TRIGGER verify_expiration_date BEFORE INSERT OR UPDATE ON Report 
 FOR EACH ROW EXECUTE PROCEDURE report_completion_date();
+
+/*
+CREATE OR REPLACE FUNCTION hash_update_tg() RETURNS trigger AS $$
+BEGIN
+    IF tg_op = 'INSERT' OR tg_op = 'UPDATE' THEN
+        NEW.hash = digest(NEW.password, 'sha256');
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER hash_password 
+BEFORE INSERT OR UPDATE ON Userino 
+FOR EACH ROW EXECUTE PROCEDURE hash_update_tg();
+*/
