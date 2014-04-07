@@ -26,9 +26,6 @@ DROP TYPE IF EXISTS reportType;
 DROP TYPE IF EXISTS workday;
 DROP TYPE IF EXISTS weekday;
 DROP INDEX IF EXISTS price_indx;
-DROP FUNCTION IF EXISTS product_expiration_date();
-DROP FUNCTION IF EXISTS report_completion_date();
-
 
 CREATE DOMAIN zip_code AS TEXT
 CHECK(
@@ -162,48 +159,5 @@ CREATE TABLE ProductBuilding (
 
 CREATE INDEX price_indx ON Product(price);
 
+
 CLUSTER Product USING price_indx;
-
-CREATE INDEX trans_indx ON Transaction(Value);
-
-CLUSTER Transaction USING trans_indx;
-
-CREATE INDEX enc_data_indx ON Orderino(orderDate);
-
-CLUSTER Orderino USING trans_indx;
-
-CREATE INDEX id_indx ON Person(idPerson);
-CLUSTER Person USING id_indx;
-
-CREATE INDEX address_indx ON Building(address);
-
-CREATE INDEX type_indx ON Report(reportType);
-
-/* Verifies if in the new inserted/updated product the expiration date is superior to the system date */
-CREATE FUNCTION product_expiration_date() RETURNS trigger AS $$
-BEGIN
-	IF new.expirationDate > CURRENT_TIMESTAMP THEN
-  		RETURN NEW;
-	ELSE 
-  		RETURN NULL; /* OR RAISE EXCEPTION 'Invalid Expiration Date' */
-END IF;
-END; $$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER verify_expiration_date BEFORE INSERT OR UPDATE ON Product 
-FOR EACH ROW EXECUTE PROCEDURE product_expiration_date();
-
-
-/* Verifies if in the new inserted/updated report the completion date is inferior to the system date */
-CREATE FUNCTION report_completion_date() RETURNS trigger AS $$
-BEGIN
-	IF new.completionDate <= CURRENT_TIMESTAMP THEN
-  		RETURN NEW;
-	ELSE 
-  		RETURN NULL; /* OR RAISE EXCEPTION 'Invalid Completion Date' */
-END IF;
-END; $$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER verify_expiration_date BEFORE INSERT OR UPDATE ON Report 
-FOR EACH ROW EXECUTE PROCEDURE report_completion_date();
