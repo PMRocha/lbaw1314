@@ -26,6 +26,12 @@ DROP TYPE IF EXISTS reportType;
 DROP TYPE IF EXISTS workday;
 DROP TYPE IF EXISTS weekday;
 DROP INDEX IF EXISTS price_indx;
+DROP INDEX IF EXISTS trans_indx;
+DROP INDEX IF EXISTS enc_data_indx;
+DROP INDEX IF EXISTS id_indx;
+DROP INDEX IF EXISTS address_indx; 
+DROP INDEX IF EXISTS type_indx;
+
 DROP FUNCTION IF EXISTS product_expiration_date();
 DROP FUNCTION IF EXISTS report_completion_date();
 /* DROP FUNCTION IF EXISTS hash_password(); */
@@ -171,14 +177,14 @@ CLUSTER Transaction USING trans_indx;
 
 CREATE INDEX enc_data_indx ON Orderino(orderDate);
 
-CLUSTER Orderino USING trans_indx;
+CLUSTER Orderino USING enc_data_indx;
 
 CREATE INDEX id_indx ON Person(idPerson);
 CLUSTER Person USING id_indx;
 
 CREATE INDEX address_indx ON Building(address);
 
-CREATE INDEX type_indx ON Report(reportType);
+CREATE INDEX type_indx ON Report(type);
 
 /* Verifies if in the new inserted/updated product the expiration date is superior to the system date */
 CREATE FUNCTION product_expiration_date() RETURNS trigger AS $$

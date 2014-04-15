@@ -1,19 +1,18 @@
 <?php
-  session_set_cookie_params(3600, '/~lbaw1344');
+  session_set_cookie_params(3600, '/~lbaw1344'); //FIXME
   session_start();
 
-  $BASE_DIR = '/opt/lbaw/lbaw1344/frmk/';
+  $BASE_DIR = '/opt/lbaw/lbaw1344/public_html/frmk/'; 
   $BASE_URL = '/~lbaw1344/frmk/';
 
-  $conn = new PDO('pgsql:host=vdbm;dbname=lbaw1344', 'lbaw1344', 'uE895le2');
+  $conn = new PDO('pgsql:host=vdbm;dbname=lbaw1344', 'lbaw1344', 
+'uE895le2'); //FIXME
   $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-  $conn->exec('SET SCHEMA \public'\'');
+  $conn->exec('SET SCHEMA \'frmk\'');
 
   include_once($BASE_DIR . 'lib/smarty/Smarty.class.php');
-  
-  
   
   $smarty = new Smarty;
   $smarty->template_dir = $BASE_DIR . 'templates/';

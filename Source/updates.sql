@@ -8,15 +8,44 @@ UPDATE Person SET ban = :ban WHERE idPerson = :idPerson; --editar o numero de co
 
 UPDATE Person SET telephone = :telephone WHERE idPerson = :idPerson; --editar o telefone da pessoa
 
+SET TRANSACTION SERIALIZABLE;
+BEGIN TRANSACTION;
+UPDATE Person SET email = :email WHERE idPerson = :idPerson; --editar o email da pessoa
+
+UPDATE Person SET fax = :fax WHERE idPerson = :idPerson; --editar o fax da pessoa
+
+UPDATE Person SET address = :address WHERE idPerson = :idPerson; --editar a morada da pessoa
+
+UPDATE Person SET ban = :ban WHERE idPerson = :idPerson; --editar o numero de conta da pessoa
+
+UPDATE Person SET telephone = :telephone WHERE idPerson = :idPerson; --editar o telefone da pessoa
+COMMIT;
+
 UPDATE Userino SET password = :password WHERE idPerson = :idPerson; --editar a passwod do user
 
 UPDATE Userino SET photograph = :photograph WHERE idPerson = :idPerson; --editar a fotografia do user
 
 UPDATE Userino SET salary = :salary WHERE idPerson = :idPerson; --editar o salario do user
 
+SET TRANSACTION SERIALIZABLE;
+BEGIN TRANSACTION;
+UPDATE Userino SET password = :password WHERE idPerson = :idPerson; --editar a passwod do user
+
+UPDATE Userino SET photograph = :photograph WHERE idPerson = :idPerson; --editar a fotografia do user
+
+UPDATE Userino SET salary = :salary WHERE idPerson = :idPerson; --editar o salario do user
+COMMIT;
+
 UPDATE Building SET address = :address WHERE idBuilding= :idBuilding; --editar a morada do edificio
 
 UPDATE Building SET zipCode = :zipCode WHERE idBuilding= :idBuilding; --editar o codigo postal do edificio
+
+SET TRANSACTION SERIALIZABLE;
+BEGIN TRANSACTION;
+UPDATE Building SET address = :address WHERE idBuilding= :idBuilding; --editar a morada do edificio
+
+UPDATE Building SET zipCode = :zipCode WHERE idBuilding= :idBuilding; --editar o codigo postal do edificio
+COMMIT;
 
 UPDATE Building SET idPerson = :idPerson WHERE idBuilding= :idBuilding; --editar o operador de um edificio
 
