@@ -1,100 +1,258 @@
-UPDATE Person SET email = :email WHERE idPerson = :idPerson; --editar o email da pessoa
+UPDATE Person SET email = :email WHERE idPerson = :idPerson; 
 
-UPDATE Person SET fax = :fax WHERE idPerson = :idPerson; --editar o fax da pessoa
+UPDATE Person SET fax = :fax WHERE idPerson = :idPerson; 
 
-UPDATE Person SET address = :address WHERE idPerson = :idPerson; --editar a morada da pessoa
+UPDATE Person SET address = :address WHERE idPerson = :idPerson; 
 
-UPDATE Person SET ban = :ban WHERE idPerson = :idPerson; --editar o numero de conta da pessoa
+UPDATE Person SET ban = :ban WHERE idPerson = :idPerson; 
 
-UPDATE Person SET telephone = :telephone WHERE idPerson = :idPerson; --editar o telefone da pessoa
+UPDATE Person SET telephone = :telephone WHERE idPerson = :idPerson; 
 
-SET TRANSACTION SERIALIZABLE;
-BEGIN TRANSACTION;
-UPDATE Person SET email = :email WHERE idPerson = :idPerson; --editar o email da pessoa
 
-UPDATE Person SET fax = :fax WHERE idPerson = :idPerson; --editar o fax da pessoa
 
-UPDATE Person SET address = :address WHERE idPerson = :idPerson; --editar a morada da pessoa
+BEGIN TRANSACTION ISOLATION LEVEL READ SERIALIZABLE;
 
-UPDATE Person SET ban = :ban WHERE idPerson = :idPerson; --editar o numero de conta da pessoa
+UPDATE Person SET email = :email WHERE idPerson = :idPerson; 
 
-UPDATE Person SET telephone = :telephone WHERE idPerson = :idPerson; --editar o telefone da pessoa
+UPDATE Person SET fax = :fax WHERE idPerson = :idPerson; 
+
+UPDATE Person SET address = :address WHERE idPerson = :idPerson; 
+
+UPDATE Person SET ban = :ban WHERE idPerson = :idPerson; 
+
+UPDATE Person SET telephone = :telephone WHERE idPerson = :idPerson; 
 COMMIT;
 
-UPDATE Userino SET password = :password WHERE idPerson = :idPerson; --editar a passwod do user
 
-UPDATE Userino SET photograph = :photograph WHERE idPerson = :idPerson; --editar a fotografia do user
+BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 
-UPDATE Userino SET salary = :salary WHERE idPerson = :idPerson; --editar o salario do user
+UPDATE Person SET email = :email WHERE idPerson = :idPerson; 
 
-SET TRANSACTION SERIALIZABLE;
-BEGIN TRANSACTION;
-UPDATE Userino SET password = :password WHERE idPerson = :idPerson; --editar a passwod do user
+UPDATE Person SET fax = :fax WHERE idPerson = :idPerson; 
 
-UPDATE Userino SET photograph = :photograph WHERE idPerson = :idPerson; --editar a fotografia do user
+UPDATE Person SET address = :address WHERE idPerson = :idPerson; 
 
-UPDATE Userino SET salary = :salary WHERE idPerson = :idPerson; --editar o salario do user
+UPDATE Person SET ban = :ban WHERE idPerson = :idPerson; 
+
+UPDATE Person SET telephone = :telephone WHERE idPerson = :idPerson; 
+
+UPDATE Userino SET password = :password WHERE idPerson = :idPerson; 
+
+UPDATE Userino SET photograph = :photograph WHERE idPerson = :idPerson;
+
+UPDATE Userino SET salary = :salary WHERE idPerson = :idPerson; 
+
 COMMIT;
 
-UPDATE Building SET address = :address WHERE idBuilding= :idBuilding; --editar a morada do edificio
 
-UPDATE Building SET zipCode = :zipCode WHERE idBuilding= :idBuilding; --editar o codigo postal do edificio
+UPDATE Userino SET password = :password WHERE idPerson = :idPerson; 
 
-SET TRANSACTION SERIALIZABLE;
-BEGIN TRANSACTION;
-UPDATE Building SET address = :address WHERE idBuilding= :idBuilding; --editar a morada do edificio
+UPDATE Userino SET photograph = :photograph WHERE idPerson = :idPerson;
 
-UPDATE Building SET zipCode = :zipCode WHERE idBuilding= :idBuilding; --editar o codigo postal do edificio
+UPDATE Userino SET salary = :salary WHERE idPerson = :idPerson;
+
+
+
+UPDATE Building SET address = :address WHERE idBuilding= :idBuilding; 
+
+UPDATE Building SET zipCode = :zipCode WHERE idBuilding= :idBuilding; 
+
+UPDATE Building SET idPerson = :idPerson WHERE idBuilding= :idBuilding; 
+
+
+BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+UPDATE Building SET address = :address WHERE idBuilding= :idBuilding; 
+
+UPDATE Building SET zipCode = :zipCode WHERE idBuilding= :idBuilding;
+
+UPDATE Building SET idPerson = :idPerson WHERE idBuilding= :idBuilding; 
+
 COMMIT;
 
-UPDATE Building SET idPerson = :idPerson WHERE idBuilding= :idBuilding; --editar o operador de um edificio
 
-UPDATE Quantity SET quantity = :quantity WHERE idBuilding = :idBuilding AND idProduct = : Product; --editar a quantidade de um produto num edificio
+UPDATE Quantity SET quantity = :quantity WHERE idBuilding = :idBuilding AND idProduct = : Product; 
 
-UPDATE Product SET price = :price WHERE idProduct = :idProduct; --editar o preço de um produto
+UPDATE Product SET price = :price WHERE idProduct = :idProduct; 
 
-UPDATE Orderino SET deliveryDate = : deliveryDate WHERE idOrder = :idOrder; --editar a data de entrega de uma encomenda
+UPDATE Orderino SET deliveryDate = : deliveryDate WHERE idOrder = :idOrder; 
 
-INSERT INTO Supplier (name, email, address, ban, fin, telephone, fax) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax);
 
-INSERT INTO Supplier (name, email, address, ban, fin, telephone) VALUES (:name, :email, :address, :ban, :fin, :telephone);
 
-INSERT INTO Client (name, email, address, ban, fin, telephone, fax) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax);
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
-INSERT INTO Client (name, email, address, ban, fin, telephone) VALUES (:name, :email, :address, :ban, :fin, :telephone);
+INSERT INTO Person (name, email, address, ban, fin, telephone, fax) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax);
+INSERT INTO Supplier SELECT idPerson FROM Person WHERE name = :name;
 
-INSERT INTO Manager (name, email, address, ban, fin, telephone, fax, photograph, password, salary, userName) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax, :photgraph, :password, :salary, :userName);
+COMMIT;
 
-INSERT INTO Manager (name, email, address, ban, fin, telephone, photograph, password, salary, userName) VALUES (:name, :email, :address, :ban, :fin, :telephone, :photgraph, :password, :salary, :userName);
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
-INSERT INTO PoSOperator (name, email, address, ban, fin, telephone, fax, photograph, password, salary, userName) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax, :photgraph, :password, :salary, :userName);
+INSERT INTO Person (name, email, address, ban, fin, telephone) VALUES (:name, :email, :address, :ban, :fin, :telephone);
+INSERT INTO Supplier SELECT idPerson FROM Person WHERE name = :name;
 
-INSERT INTO PoSOperator (name, email, address, ban, fin, telephone, photograph, password, salary, userName) VALUES (:name, :email, :address, :ban, :fin, :telephone, :photgraph, :password, :salary, :userName);
+COMMIT;
 
-INSERT INTO ShopKeeer (name, email, address, ban, fin, telephone, fax, photograph, password, salary, userName) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax, :photgraph, :password, :salary, :userName);
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
-INSERT INTO ShopKeeer (name, email, address, ban, fin, telephone, photograph, password, salary, userName) VALUES (:name, :email, :address, :ban, :fin, :telephone, :photgraph, :password, :salary, :userName);
+INSERT INTO Person (name, email, address, ban, fin, telephone, fax) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax);
+INSERT INTO Client SELECT idPerson FROM Person WHERE name = :name;
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Person (name, email, address, ban, fin, telephone) VALUES (:name, :email, :address, :ban, :fin, :telephone);
+INSERT INTO Client SELECT idPerson FROM Person WHERE name = :name;
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Person (name, email, address, ban, fin, telephone, fax) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax);
+
+INSERT INTO Userino(idPerson,photograph, password, salary, userName)
+SELECT  idPerson ,:photgraph, :password, :salary, :userName
+FROM    Person 
+WHERE   name = :name;
+
+INSERT INTO Manager SELECT idPerson FROM Person WHERE name = :name;
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Person (name, email, address, ban, fin, telephone) VALUES (:name, :email, :address, :ban, :fin, :telephone);
+
+INSERT INTO Userino(idPerson,photograph, password, salary, userName)
+SELECT  idPerson ,:photgraph, :password, :salary, :userName
+FROM    Person 
+WHERE   name = :name;
+
+INSERT INTO Manager SELECT idPerson FROM Person WHERE name = :name;
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Person (name, email, address, ban, fin, telephone, fax) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax);
+
+INSERT INTO Userino(idPerson,photograph, password, salary, userName)
+SELECT  idPerson ,:photgraph, :password, :salary, :userName
+FROM    Person 
+WHERE   name = :name;
+
+INSERT INTO PoSOperator SELECT idPerson FROM Person WHERE name = :name;
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Person (name, email, address, ban, fin, telephone) VALUES (:name, :email, :address, :ban, :fin, :telephone);
+
+INSERT INTO Userino(idPerson,photograph, password, salary, userName)
+SELECT  idPerson ,:photgraph, :password, :salary, :userName
+FROM    Person 
+WHERE   name = :name;
+
+INSERT INTO PoSOperator SELECT idPerson FROM Person WHERE name = :name;
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Person (name, email, address, ban, fin, telephone, fax) VALUES (:name, :email, :address, :ban, :fin, :telephone, :fax);
+
+INSERT INTO Userino(idPerson,photograph, password, salary, userName)
+SELECT  idPerson ,:photgraph, :password, :salary, :userName
+FROM    Person 
+WHERE   name = :name;
+
+INSERT INTO ShopKeeer SELECT idPerson FROM Person WHERE name = :name;
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Person (name, email, address, ban, fin, telephone) VALUES (:name, :email, :address, :ban, :fin, :telephone);
+
+INSERT INTO Userino(idPerson,photograph, password, salary, userName)
+SELECT  idPerson ,:photgraph, :password, :salary, :userName
+FROM    Person 
+WHERE   name = :name;
+
+INSERT INTO ShopKeeer SELECT idPerson FROM Person WHERE name = :name;
+
+COMMIT;
 
 INSERT INTO Report (name,completionDate, content, idPerson, type) VALUES (:name, :completionDate, :content, :idPerson, :type);
 
-INSERT INTO Storage (zipCode, address, idPerson) VALUES (:zipCode, :address, :idPerson);
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
-INSERT INTO PointOfSale (zipCode, address, idPerson) VALUES (:zipCode, :address, :idPerson);
+INSERT INTO Building (zipCode, address, idPerson) VALUES (:zipCode, :address, :idPerson);
+INSERT INTO Storage SELECT idBuilding FROM Building WHERE address = :address;
 
-INSERT INTO Quantity (idBuilding, idProduct, quantity) VALUES (:idBuilding, :idProduct, :quantity);
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Building (zipCode, address, idPerson) VALUES (:zipCode, :address, :idPerson);
+INSERT INTO PointOfSale SELECT idBuilding FROM Building WHERE address = :address;
+
+COMMIT;
+
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Building (zipCode, address, idPerson) VALUES (:zipCode, :address, :idPerson);
+INSERT INTO PointOfSale SELECT idBuilding FROM Building WHERE address = :address;
+INSERT INTO ShopKeeperPintOfSale (idPerson, idBuilding) VALUES (:idPerson, :idBuilding);
+
+COMMIT;
+
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
 INSERT INTO Product (name, price, expirationDate, category, photograph, description) VALUES (:name, :price, :expirationDate, :category, :photograph, :description);
+INSERT INTO ProductBuilding (idBuilding, idProduct) VALUES (:idBuilding, idProduct);
+INSERT INTO Quantity (idBuilding, idProduct, quantity) VALUES (:idBuilding, :idProduct, :quantity);
+
+COMMIT;
+
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
 INSERT INTO Product (name, price, expirationDate, category, photograph) VALUES (:name, :price, :expirationDate, :category, :photograph);
+INSERT INTO ProductBuilding (idBuilding, idProduct) VALUES (:idBuilding, idProduct);
+INSERT INTO Quantity (idBuilding, idProduct, quantity) VALUES (:idBuilding, :idProduct, :quantity);
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO ProductBuilding (idBuilding, idProduct) VALUES (:idBuilding, idProduct);
+INSERT INTO Quantity (idBuilding, idProduct, quantity) VALUES (:idBuilding, :idProduct, :quantity);
+
+COMMIT;
 
 INSERT INTO Transaction (value, idPointOfSale) VALUES (:values, :idPointOfSale);
 
-INSERT INTO SupplierCompany (idTransaction, idPerson) VALUES (:idTransaction, :idPerson);
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+INSERT INTO Transaction (value, idPointOfSale) VALUES (:values, :idPointOfSale);
+
+INSERT INTO SupplierCompany(idTransaction, idPerson)
+SELECT  idTransaction, :idPerson
+FROM    Transaction 
+ORDER BY ID DESC LIMIT 1;
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
 INSERT INTO Orderino (orderDate, paymentDate, deliveryDate, idSupplierCompany) VALUES (:orderDate, :paymentDate, :deliveryDate, :idSupplierCompany);
-
 INSERT INTO ProductOrder (idProduct, idOrder, quantity) VALUES (:idProduct, :idOrder, :quantity);
 
-INSERT INTO ShopKeeperPintOfSale (idPerson, idBuilding) VALUES (:idPerson, :idBuilding);
+COMMIT;
 
-INSERT INTO ProductBuilding (idBuilding, idProduct) VALUES (:idBuilding, idProduct)
+INSERT INTO ShopKeeperPintOfSale (idPerson, idBuilding) VALUES (:idPerson, :idBuilding);

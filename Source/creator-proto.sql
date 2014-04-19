@@ -1,3 +1,7 @@
+DROP SCHEMA IF EXISTS proto CASCADE; 
+CREATE SCHEMA proto; 
+SET SCHEMA 'proto';
+
 DROP TABLE IF EXISTS Person CASCADE;
 DROP TABLE IF EXISTS Client CASCADE;
 DROP TABLE IF EXISTS Supplier CASCADE;
@@ -26,6 +30,15 @@ DROP TYPE IF EXISTS reportType;
 DROP TYPE IF EXISTS workday;
 DROP TYPE IF EXISTS weekday;
 DROP INDEX IF EXISTS price_indx;
+DROP INDEX IF EXISTS trans_indx;
+DROP INDEX IF EXISTS enc_data_indx;
+DROP INDEX IF EXISTS id_indx;
+DROP INDEX IF EXISTS address_indx; 
+DROP INDEX IF EXISTS type_indx;
+
+DROP FUNCTION IF EXISTS product_expiration_date();
+DROP FUNCTION IF EXISTS report_completion_date();
+/* DROP FUNCTION IF EXISTS hash_password(); */
 
 CREATE DOMAIN zip_code AS TEXT
 CHECK(
@@ -61,6 +74,7 @@ CREATE TABLE Userino (
 	idPerson SERIAL PRIMARY KEY,
 	photograph VARCHAR(255) NOT NULL,
 	password VARCHAR(20) NOT NULL,
+	hash bytea,
 	salary MONEY NOT NULL,
 	userName VARCHAR(20) NOT NULL UNIQUE
 );
@@ -159,5 +173,61 @@ CREATE TABLE ProductBuilding (
 
 CREATE INDEX price_indx ON Product(price);
 
-
 CLUSTER Product USING price_indx;
+
+CREATE INDEX trans_indx ON Transaction(Value);
+
+CLUSTER Transaction USING trans_indx;
+
+CREATE INDEX enc_data_indx ON Orderino(orderDate);
+
+CLUSTER Orderino USING enc_data_indx;
+
+CREATE INDEX id_indx ON Person(idPerson);
+CLUSTER Person USING id_indx;
+
+CREATE INDEX address_indx ON Building(address);
+
+CREATE INDEX type_indx ON Report(type);
+
+/* Verifies if in the new inserted/updated product the expiration date is superior to the system date */
+CREATE FUNCTION product_expiration_date() RETURNS trigger AS $$
+BEGIN
+	IF new.expirationDate > (SELECT CURRENT_TIMESTAMP) THEN
+  		RETURN NEW;
+	ELSE 
+  		RETURN NULL; /* OR RAISE EXCEPTION 'Invalid Expiration Date' */
+END IF;
+END; $$
+LANGUAGE 'plpgsql';
+CREATE TRIGGER verify_expiration_date BEFORE INSERT OR UPDATE ON Product 
+FOR EACH ROW EXECUTE PROCEDURE product_expiration_date();
+
+
+/* Verifies if in the new inserted/updated report the completion date is inferior to the system date */
+CREATE FUNCTION report_completion_date() RETURNS trigger AS $$
+BEGIN
+	IF new.completionDate <= (SELECT CURRENT_TIMESTAMP) THEN
+  		RETURN NEW;
+	ELSE 
+  		RETURN NULL; 
+END IF;
+END; $$
+LANGUAGE 'plpgsql';
+CREATE TRIGGER verify_expiration_date BEFORE INSERT OR UPDATE ON Report 
+FOR EACH ROW EXECUTE PROCEDURE report_completion_date();
+
+/*
+CREATE OR REPLACE FUNCTION hash_update_tg() RETURNS trigger AS $$
+BEGIN
+    IF tg_op = 'INSERT' OR tg_op = 'UPDATE' THEN
+        NEW.hash = digest(NEW.password, 'sha256');
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER hash_password 
+BEFORE INSERT OR UPDATE ON Userino 
+FOR EACH ROW EXECUTE PROCEDURE hash_update_tg();
+*/
