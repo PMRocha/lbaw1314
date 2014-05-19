@@ -51,6 +51,12 @@ CREATE TYPE workday AS ENUM('Monday','Tuesday','Wednesday','Thursday','Friday');
 
 CREATE TYPE weekday AS ENUM('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 
+CREATE TYPE userType AS ENUM('Administrador','Gestor','Operador de Ponto de Venda');
+
+CREATE TYPE personType AS ENUM('User','Cliente','Fornecedor');
+
+CREATE TYPE buildingType AS ENUM('Ponto de Venda','Armazém');
+
 CREATE TABLE Person (
 	idPerson SERIAL PRIMARY KEY, 
 	email VARCHAR(255) NOT NULL UNIQUE,
@@ -59,7 +65,8 @@ CREATE TABLE Person (
 	ban VARCHAR(255) NOT NULL, /*bank account number*/
 	fin VARCHAR(255) NOT NULL, /*fiscal identification number*/
 	name VARCHAR(255) NOT NULL UNIQUE,
-	telephone INTEGER NOT NULL UNIQUE
+	telephone INTEGER NOT NULL UNIQUE,
+	ranking personType NOT NULL
 );
 
 CREATE TABLE Supplier (
@@ -76,7 +83,8 @@ CREATE TABLE Userino (
 	password VARCHAR(20) NOT NULL,
 	hash bytea,
 	salary MONEY NOT NULL,
-	userName VARCHAR(20) NOT NULL UNIQUE
+	userName VARCHAR(20) NOT NULL UNIQUE,
+	position userType NOT NULL
 );
 
 CREATE TABLE Manager (
@@ -104,7 +112,8 @@ CREATE TABLE Building (
 	idBuilding SERIAL PRIMARY KEY,
 	zipCode zip_code NOT NULL,
 	address VARCHAR(255) NOT NULL UNIQUE,
-	idPerson SERIAL NOT NULL UNIQUE REFERENCES PoSOperator(idPerson) 
+	idPerson SERIAL NOT NULL UNIQUE REFERENCES PoSOperator(idPerson),
+	buildingFunction buildingType NOT NULL
 );
 
 CREATE TABLE Storage (
