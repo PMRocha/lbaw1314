@@ -1,6 +1,6 @@
-DROP SCHEMA IF EXISTS proto CASCADE; 
-CREATE SCHEMA proto; 
-SET SCHEMA 'proto';
+DROP SCHEMA IF EXISTS final CASCADE; 
+CREATE SCHEMA final; 
+SET SCHEMA 'final';
 
 DROP TABLE IF EXISTS Person CASCADE;
 DROP TABLE IF EXISTS Client CASCADE;
@@ -38,7 +38,6 @@ DROP INDEX IF EXISTS type_indx;
 
 DROP FUNCTION IF EXISTS product_expiration_date();
 DROP FUNCTION IF EXISTS report_completion_date();
-/* DROP FUNCTION IF EXISTS hash_password(); */
 
 CREATE DOMAIN zip_code AS TEXT
 CHECK(
@@ -225,18 +224,3 @@ END; $$
 LANGUAGE 'plpgsql';
 CREATE TRIGGER verify_expiration_date BEFORE INSERT OR UPDATE ON Report 
 FOR EACH ROW EXECUTE PROCEDURE report_completion_date();
-
-/*
-CREATE OR REPLACE FUNCTION hash_update_tg() RETURNS trigger AS $$
-BEGIN
-    IF tg_op = 'INSERT' OR tg_op = 'UPDATE' THEN
-        NEW.hash = digest(NEW.password, 'sha256');
-        RETURN NEW;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER hash_password 
-BEFORE INSERT OR UPDATE ON Userino 
-FOR EACH ROW EXECUTE PROCEDURE hash_update_tg();
-*/
